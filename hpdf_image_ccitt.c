@@ -425,7 +425,7 @@ static /*inline*/ int32 find0span(unsigned char* bp, int32 bs, int32 be)
 		/*
 		 * Align to longword boundary and check longwords.
 		 */
-		while (!isAligned(bp, long)) {
+		while (!isAligned((uintptr_t)(bp), long)) {
 			if (*bp != 0x00)
 				return (span + zeroruns[*bp]);
 			span += 8, bits -= 8;
@@ -484,7 +484,7 @@ find1span(unsigned char* bp, int32 bs, int32 be)
 		/*
 		 * Align to longword boundary and check longwords.
 		 */
-		while (!isAligned(bp, long)) {
+		while (!isAligned((uintptr_t)(bp), long)) {
 			if (*bp != 0xff)
 				return (span + oneruns[*bp]);
 			span += 8, bits -= 8;
