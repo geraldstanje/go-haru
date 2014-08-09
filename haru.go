@@ -12,12 +12,20 @@ package haru
 */
 import "C"
 import (
-	"unsafe"
+//"unsafe"
 )
 
-func GetVersion() string {
+const (
+	hpdfVersion = "2.4.0dev"
+)
+
+// for test
+func getVersion() string {
 	p := C.HPDF_GetVersion()
 	s := C.GoString(p)
-	C.free(unsafe.Pointer(p))
 	return s
+}
+
+func GetVersion() string {
+	return hpdfVersion
 }
