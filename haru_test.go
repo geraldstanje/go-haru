@@ -9,7 +9,7 @@ import (
 )
 
 func TestGetVersion(t *testing.T) {
-	if a, b := getVersion(), GetVersion(); a != b {
+	if a, b := hpdfGetVersion(), GetVersion(); a != b {
 		t.Fatalf("expect = %v, got = %v", a, b)
 	}
 }

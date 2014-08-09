@@ -30,10 +30,9 @@ var fontList = []string{
 }
 
 func main() {
-	pdf, err := haru.New(nil)
-	if err != nil {
-		log.Fatal(err)
-	}
+	fmt.Printf("haru version: %v\n", haru.GetVersion())
+
+	pdf := haru.NewDoc()
 	defer pdf.Free()
 
 	// Add a new page object.
@@ -43,11 +42,11 @@ func main() {
 
 	// Print the lines of the page.
 	page.SetLineWidth(1)
-	page.Rectangle(page, 50, 50, width-100, height-110)
+	page.Rectangle(50, 50, width-100, height-110)
 	page.Stroke()
 
 	// Print the title of the page (with positioning center).
-	def_font := pdf.GetFont("Helvetica", nil)
+	def_font := pdf.GetFont("Helvetica", "")
 	page.SetFontAndSize(def_font, 24)
 
 	page_title := "Font Demo"
@@ -67,12 +66,12 @@ func main() {
 
 		for i, _ := range fontList {
 			samp_text := "abcdefgABCDEFG12345!#$%&+-@?"
-			font := pdf.GetFont(fontList[i], nil)
+			font := pdf.GetFont(fontList[i], "")
 
 			// print a label of text
-			page.SetFontAndSize(page, def_font, 9)
-			page.ShowText(page, fontList[i])
-			page.MoveTextPos(page, 0, -18)
+			page.SetFontAndSize(def_font, 9)
+			page.ShowText(fontList[i])
+			page.MoveTextPos(0, -18)
 
 			// print a sample text.
 			page.SetFontAndSize(font, 20)
@@ -81,5 +80,5 @@ func main() {
 		}
 	})
 
-	pdf.Save("font_demo.pdf")
+	pdf.SaveToFile("font_demo.pdf")
 }
